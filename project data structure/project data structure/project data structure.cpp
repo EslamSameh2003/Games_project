@@ -9,16 +9,16 @@
 using namespace std;
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-int first_num_in_box = 2;
-int score = 2;
-int Score_tree = 0;
-
+int biggest_num_in_box = 2;
+int score = 0;
 int size1 = 0, size2 = 0, size3 = 0, size4 = 0;
+int Score_tree = 0;
 // circular box
+
 class game_2048
 {
 public:
-
+    // circular box
     struct node_box
     {
         int data;
@@ -45,28 +45,28 @@ public:
         }
     }
 
-    // circular end 
+
     void insert_num_to_box()
     {
-        if (first_num_in_box < score)
+        if (biggest_num_in_box < score)
         {
-            first_num_in_box = score;
+            biggest_num_in_box = score;
             push_box(score);
         }
     }
-
 
     int get_num_from_box()
     {
         node_box* num_of_box = head;
         srand(time(0));
-        int x = rand() % 20;
-        for (int i = 0; i < x; i++)
+        int count = rand() % 20;
+        for (int i = 0; i < count; i++)
         {
             num_of_box = num_of_box->next;
         }
         return num_of_box->data;
     }
+    // circular end 
     // main game 
     struct node
     {
@@ -211,16 +211,13 @@ public:
 
             del = top_coloum1;
             top_coloum1 = top_coloum1->down;
-
-            if (top_coloum1 != NULL)
-            {
-                top_coloum1->up = NULL;
-            }
+            top_coloum1->up = NULL;
             free(del);
             size1--;
         }
         else
         {
+            // size is different
             for (int i = 1; i < size1; i++)
             {
                 if (test_coloum2 != NULL)
@@ -233,6 +230,7 @@ public:
                 top_coloum1->data = (top_coloum1->data * 2);
                 // هنا هستخدم بوينتر del علشان امسح النوده 
                 del = test_coloum2;
+                //for first node of coloum 2
                 if (test_coloum2->down == NULL)
                 {
                     del->up->down = NULL;
@@ -240,6 +238,7 @@ public:
                     free(del);
                     size2--;
                 }
+                //for any node of coloum 2
                 else
                 {
                     test_coloum2 = test_coloum2->down;
@@ -262,7 +261,7 @@ public:
         {
             top_coloum4->data = (top_coloum4->data * 2);
             del = top_coloum3;
-            top_coloum3 = top_coloum3->down;
+            top_coloum3 = top_coloum3->down;  //Null
             free(del);
             if (top_coloum3 != NULL)
             {
@@ -280,10 +279,7 @@ public:
             del = top_coloum4;
             top_coloum4 = top_coloum4->down;
             free(del);
-            if (top_coloum4 != NULL)
-            {
-                top_coloum4->up = NULL;
-            }
+            top_coloum4->up = NULL;
             size4--;
         }
         else
@@ -311,7 +307,7 @@ public:
                 else
                 {
                     test_coloum3 = test_coloum3->down;
-                    del->up->down = test_coloum3;
+                    del->up->down = test_coloum3;// بتشاور ع اللي قبل اللي فوق
                     test_coloum3->up = del->up;
                     free(del);
                     size3--;
@@ -364,10 +360,7 @@ public:
             del = top_coloum2;
             top_coloum2 = top_coloum2->down;
             free(del);
-            if (top_coloum2 != NULL)
-            {
-                top_coloum2->up = NULL;
-            }
+            top_coloum2->up = NULL;
             size2--;
         }
         else
@@ -481,10 +474,7 @@ public:
             del = top_coloum3;
             top_coloum3 = top_coloum3->down;
             free(del);
-            if (top_coloum3 != NULL)
-            {
-                top_coloum3->up = NULL;
-            }
+            top_coloum3->up = NULL;
             size3--;
         }
         else
@@ -640,41 +630,178 @@ public:
         }
         cout << "\n\t\t\t\t\t---------------------------------\n\n\n";
     }
+    // علشان يشوف العمود اللى اتعبى والفاضى 
+    void check_the_size_of_coloums(int coloum)
+    {
+        switch (coloum)
+        {
+        case 1:
+            if (size1 == 5)
+            {
+                size1--;
+                top_coloum1 = top_coloum1->down;
+                top_coloum1->up = NULL;
+                system("cls");
+                SetConsoleTextAttribute(console, 4);
+                cout << "\n\n\n\n\n\t\t\t\t\t\t  the coloum is full try again.... \n\n\n\n\n\n";
+                SetConsoleTextAttribute(console, 7);
+                system("pause");
+            }
 
+            break;
+        case 2:
+            if (size2 == 5)
+            {
+                size2--;
+                top_coloum2 = top_coloum2->down;
+                top_coloum2->up = NULL;
+                system("cls");
+                SetConsoleTextAttribute(console, 4);
+                cout << "\n\n\n\n\n\t\t\t\t\t\t  the coloum is full try again.... \n\n\n\n\n\n";
+                SetConsoleTextAttribute(console, 7);
+                system("pause");
+            }
 
+            break;
+        case 3:
+            if (size3 == 5)
+            {
+                size3--;
+                top_coloum3 = top_coloum3->down;
+                top_coloum3->up = NULL;
+                system("cls");
+                SetConsoleTextAttribute(console, 4);
+                cout << "\n\n\n\n\n\t\t\t\t\t\t  the coloum is full try again.... \n\n\n\n\n\n";
+                SetConsoleTextAttribute(console, 7);
+                system("pause");
+            }
+
+            break;
+        case 4:
+            if (size4 == 5)
+            {
+                size4--;
+                top_coloum4 = top_coloum4->down;
+                top_coloum4->up = NULL;
+                system("cls");
+                SetConsoleTextAttribute(console, 4);
+                cout << "\n\n\n\n\n\t\t\t\t\t\t  the coloum is full try again.... \n\n\n\n\n\n";
+                SetConsoleTextAttribute(console, 7);
+                system("pause");
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+    void GUI(int x)
+    {
+        cout << "\t\t\tYou have the value -> \t";
+        SetConsoleTextAttribute(console, 4);
+        cout << "   " << x << "   ";
+        SetConsoleTextAttribute(console, 112);
+        cout << "\t\t\t";
+        cout << "coloum = ";
+        SetConsoleTextAttribute(console, 4);
+    }
     // for check the value of score
 
     void check_score()
     {
         if (top_coloum1 != NULL)
         {
-            if (top_coloum1->data > score)
+            if (top_coloum1->data >= score)
             {
                 score = top_coloum1->data;
             }
         }
         if (top_coloum2 != NULL)
         {
-            if (top_coloum2->data > score)
+            if (top_coloum2->data >= score)
             {
                 score = top_coloum2->data;
             }
         }
         if (top_coloum3 != NULL)
         {
-            if (top_coloum3->data > score)
+            if (top_coloum3->data >= score)
             {
                 score = top_coloum3->data;
             }
         }
         if (top_coloum4 != NULL)
         {
-            if (top_coloum4->data > score)
+            if (top_coloum4->data >= score)
             {
                 score = top_coloum4->data;
             }
         }
     }
+    void execuation()
+    {
+        game_2048 game1;
+        int x = 0;
+        bool game_is_end = false;
+        int coloum = 0;
+        game1.display_logo();
+        game1.push_box(2);
+    check_coloum:
+        game1.display_coloums();
+        game1.display_score();
+        while (size1 <= 4 || size2 <= 4 || size3 <= 4 || size4 <= 4)
+        {
+            if (score == 2048)
+            {
+                game_is_end = true;
+                break;
+            }
+            x = game1.get_num_from_box();
+            game1.GUI(x);
+            cin >> coloum;
+            game1.push(x, coloum);
+            if (coloum > 4 || coloum < 0)
+            {
+                goto check_coloum;
+            }
+            game1.check_the_size_of_coloums(coloum);
+            game1.check_change_of_matrix(coloum);
+            if (size1 == 4 && size2 == 4 && size3 == 4 && size4 == 4)
+            {
+                system("cls");
+                game1.display_coloums();
+                game1.display_score();
+                break;
+            }
+            game1.check_score();
+            game1.insert_num_to_box();
+            system("cls");
+            game1.display_coloums();
+            game1.display_score();
+        }
+        if (game_is_end)
+        {
+            cout << "\t\t\t\t\t  ";
+            SetConsoleTextAttribute(console, 4);
+            cout << " < CONGRATULATION >  YOU WIN ";
+            SetConsoleTextAttribute(console, 112);
+            cout << "\n\n";
+        }
+        else
+        {
+            cout << "\n\t\t\t\t\t\t";
+            SetConsoleTextAttribute(console, 4);
+            cout << " GAME OVER ! YOU LOSE..... ";
+            SetConsoleTextAttribute(console, 112);
+            cout << "\n\n";
+        }
+
+
+
+    }
+
+
+
 
     //////////////////////////////// logo func ///////////////////////
     void display_logo()
@@ -728,71 +855,8 @@ public:
         cout << "\n\t\t\t\n\n\n\n";
     }
 
-    void execuation()
-    {
-       
-        int x = 0;
-        bool game_is_end = false;
-        int coloum = 0;
-
-        display_logo();
-
-        push_box(2);
-    check_coloum:
-        display_coloums();
-        display_score();
-        while (size1 != 5 && size2 != 5 && size3 != 5 && size4 != 5)
-        {
-            if (score == 2048)
-            {
-                game_is_end = true;
-                break;
-            }
-            x = get_num_from_box();
-            cout << "\t\t\tYou have the value -> \t";
-            SetConsoleTextAttribute(console, 4);
-            cout << "   " << x << "   ";
-            SetConsoleTextAttribute(console, 112);
-            cout << "\t\t\t";
-            cout << "coloum = ";
-            SetConsoleTextAttribute(console, 4);
-            cin >> coloum;
-            push(x, coloum);
-            if (coloum > 4 || coloum < 0)
-            {
-                goto check_coloum;
-            }
-            check_change_of_matrix(coloum);
-            check_score();
-            insert_num_to_box();
-            system("cls");
-            display_coloums();
-            display_score();
-        }
-        if (game_is_end)
-        {
-            cout << "\t\t\t\t\t  ";
-            SetConsoleTextAttribute(console, 4);
-            cout << " < CONGRATULATION >  YOU WIN ";
-            SetConsoleTextAttribute(console, 112);
-            cout << "\n\n";
-        }
-        else
-        {
-            cout << "\t\t\t\t\t  ";
-            SetConsoleTextAttribute(console, 4);
-            cout << " GAME OVER ! YOU LOSE..... ";
-            SetConsoleTextAttribute(console, 112);
-            cout << "\n\n";
-        }
-
-
-
-
-    }
-
-
 };
+
 
 ////////////////////////////////////// Game 2 //////////////////////////
 
@@ -927,6 +991,162 @@ public:
 
 };
 
+////////////////////////////////////////// Game 3///////////////////////
+
+class quiz_game {
+
+public:
+
+    class quiz_node {
+    public:
+        int data;
+        quiz_node* next;
+    };
+
+    quiz_node* head = NULL;
+
+    void insert_answer(int true_ans, int pos) {
+
+        quiz_node* newnode = new quiz_node;
+        newnode->data = true_ans;
+        newnode->next = NULL;
+
+        if (pos == 1) {
+            newnode->next = head;
+            head = newnode;
+            return;
+        }
+
+        quiz_node* temp = head;
+        for (int i = 1; i < pos - 1 && temp != NULL; i++) {
+            temp = temp->next;
+        }
+
+        if (temp != NULL) {
+            newnode->next = temp->next;
+            temp->next = newnode;
+        }
+    }
+
+    void set_answers() {
+
+        insert_answer(61, 1);                           insert_answer(5, 2);                       insert_answer(2, 3);
+        insert_answer(10, 4);                           insert_answer(3, 5);                       insert_answer(5, 6);
+        insert_answer(12, 7);                           insert_answer(2520, 8);                    insert_answer(21, 9);
+        insert_answer(305, 10);                         insert_answer(20, 11);                     insert_answer(24, 12);
+        insert_answer(168, 13);                         insert_answer(7, 14);                      insert_answer(25, 15);
+        insert_answer(19, 16);                          insert_answer(35, 17);                     insert_answer(5, 18);
+        insert_answer(600, 19);                         insert_answer(5, 20);                      insert_answer(48, 21);
+        insert_answer(0, 22);                           insert_answer(20, 23);                     insert_answer(1260, 24);
+        insert_answer(1827, 25);                        insert_answer(22, 26);                     insert_answer(6170, 27);
+        insert_answer(4884, 28);                        insert_answer(297, 29);                    insert_answer(384, 30);
+    }
+
+    bool check_answer(int ans, int random) {
+
+
+        quiz_node* ptr = head;
+        for (int i = 1; i < random; i++)
+        {
+            ptr = ptr->next;  
+        }
+        if (ans == ptr->data)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    void display_qa() {
+        ifstream myfile("questions.txt");
+        string line;
+        int curent = 0;
+        srand(time(0));
+        int num_line = rand() % 20;
+        int numq, answer;
+        int score_quiz = 0;
+        char choice;
+    start:
+        cout << " Please Enter the number of questions from < 1 : 10 > : ";
+        cin >> numq;
+        if (numq > 10 || numq < 1)
+        {
+            goto start;
+        }
+        Sleep(1000);
+        system("cls");
+        curent = num_line;
+        for (int i = 0; i < curent; i++)
+        {
+            getline(myfile, line);
+        }
+        for (int i = 0; i < numq; i++)
+        {
+            //getline(myfile, line);
+            system("cls");
+            cout << line << endl;
+            cout << "enter your anwser->  ";
+            cin >> answer;
+            if (check_answer(answer, curent)) {
+                cout << "Your answer is correct" << endl;
+                score_quiz += 10;
+                cout << "Score: " << score_quiz << endl;
+            }
+            else {
+                cout << "Your answer is wrong" << endl;
+            }
+            curent++;
+            Sleep(1000);
+            system("CLS");
+            getline(myfile, line);
+
+        }
+        if (score_quiz >= numq * 10) {
+            cout << "Congratulations, you won! " << endl;
+            goto end;
+        }
+        else {
+            cout << "Unfortunately, you lost" << endl;
+            goto end;
+        }
+    end:
+        Sleep(1000);
+        system("CLS");
+        cout << "\n\t Do you Want to Ask again?( Y / N )\n\t\t\t";
+        cin >> choice;
+        Sleep(1000);
+        system("CLS");
+        if (choice == 'n' || choice == 'N')
+        {
+            cout << "\n\n\t\t We hope you had a great time with a little fun and benefit. ";
+            Sleep(1500);
+            cout << "\n\n\t\t Keep in mind that: ";
+            Sleep(1500);
+            cout << "\n\n\t\t Creativity, when intelligence becomes a kind of fun. \n\n\t\t\t Albert Einstein \n";
+            Sleep(1500);
+            exit(0);
+        }
+        else if (choice == 'y' || choice == 'Y')
+        {
+            goto start;
+        }
+        else
+        {
+            cout << "\n\tWrong choose\n\tTry again\n";
+            goto end;
+        }
+        myfile.close();
+    }
+
+};
+
+
+
+
 
 
 int main()
@@ -966,8 +1186,10 @@ int main()
     }
     case 3:
     {
-        How_am_i game2;
-        game2.built_tree();
+        quiz_game* quiz = new quiz_game;
+        quiz->set_answers();
+        quiz->display_qa();
+
         break;
     }
     case 4:
