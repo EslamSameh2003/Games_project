@@ -5,7 +5,7 @@
 #include<string>
 #include<windows.h>
 using namespace std;
-
+// انا ضفت تعديل عليه 
 class quiz_game {
 
 public:
@@ -94,10 +94,13 @@ public:
 		int score_quiz = 0;
 		char choice;
 	start:
-		cout << " Please Enter the number of questions from < 1 : 10 > : ";
+		cout << "\n\n\t\t Please Enter the number of questions from < 1 : 10 > : ";
 		cin >> numq;
 		if (numq>10 || numq<1)
 		{
+            cout<<"\n\n\t\t wrong answer try again.....";
+            Sleep(1500);
+            system("cls");
 			goto start;
 		}
 		Sleep(1000);
