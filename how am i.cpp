@@ -1,14 +1,15 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include<fstream>
 #include<string>
 #include<windows.h>
 using namespace std;
-int Score_tree = 0;
-
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 class How_am_i
 {
+    //private
+    int Score_tree = 0;
 public:
 
     struct Node {
@@ -30,7 +31,7 @@ public:
             return;
         }
         if (curr->left == NULL && curr->right == NULL) {
-            cout << curr->data << endl;
+            cout <<"\t-> "<< curr->data << "\t";
         }
         else {
             displayAnimals(curr->left);
@@ -43,21 +44,21 @@ public:
         string question;
         char newAnswer;
         if (curr->left == NULL && curr->right == NULL) {
-            cout << "Is it a " << curr->data << "? (y/n): ";
+            cout << "\nIs it a " << curr->data << "? (y/n): ";
             cin >> answer;
             if (answer == 'y') {
                 cout << "I win!\n";
             }
             else {
                 Score_tree = Score_tree + 1;
-                cout << "I give up. What animal were you thinking of? ";
+                cout << "\nI give up. What animal were you thinking of? ";
 
                 getline(cin, newAnimal);
-                cout << "What is a yes/no question that distinguishes a <  "
+                cout << "\nWhat is a yes/no question that distinguishes a <  "
                     << curr->data << " > from a < " << newAnimal << " > ? ";
                 //cin.ignore();
                 getline(cin, question);
-                cout << "If the animal were a < " << newAnimal << " > , what would the answer to that question be? ";
+                cout << "\nIf the animal were a < " << newAnimal << " > , what would the answer to that question be? ";
                 cin >> newAnswer;
                 Node* newQuestion = createLeaf(question);
                 Node* newAnimalNode = createLeaf(newAnimal);
@@ -75,7 +76,7 @@ public:
             }
         }
         else {
-            cout << curr->data << " (y/n): ";
+            cout <<"\n"<< curr->data << " (y/n): ";
             char answer;
             cin >> answer;
             if (answer == 'y') {
@@ -100,6 +101,7 @@ public:
         root->right->left->left = createLeaf("True Crabs");// سرطان البحر 
         root->left = createLeaf("is it birds");
         root->left->right = createLeaf("can Talk ?");
+        root->left->right->right = createLeaf("parrot");
         root->left->right->left = createLeaf("bird"); // عصفوره
         root->left->left = createLeaf("Is it mammals ?");// ثديات 
         root->left->left->right = createLeaf("Is it the fastest ?");
@@ -109,28 +111,29 @@ public:
         root->left->left->right->left->left = createLeaf("Cow");//بقره 
         root->left->left->left = createLeaf("Bee");//نحله  
 
-
-
         char ch = 'y';
         while (ch == 'Y' || ch == 'y') {
             cout << "\n\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
             cout << "                                              Welcome to our game                                                              " << endl;
             cout << "\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
-
+            cout<<"\n the list contain :- \n\n";
+            SetConsoleTextAttribute(console, 160);
             displayAnimals(root);
-            cout << "\nthis is the only animals available for now with every time you play it become more complex good luck \n" << endl;
+            SetConsoleTextAttribute(console, 7);
+            cout<<"\n\n";
+            SetConsoleTextAttribute(console, 120);
 
+            cout << "\n Note :  this is the only animals available for now with every time you play it become more complex good luck \n" << endl;
+            SetConsoleTextAttribute(console, 7);
             cout << "\n\nThink of an animal and I'll try to guess it.";
-            cout << "\t~* your score *~ : " << Score_tree << endl;
-
+            cout << "\n~* your score *~ : " << Score_tree << endl;
             playGame(root);
-
             cout << "Do you want to play again? (Y/N): ";
             cin >> ch;
            
             system("cls");
         }
-        cout << "Thanks for playing!\n";
+        cout << "\nThanks for playing!\n";
 
 
     }
