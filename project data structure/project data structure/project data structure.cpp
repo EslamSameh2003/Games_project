@@ -13,7 +13,7 @@ int biggest_num_in_box = 2;
 int score = 0;
 int size1 = 0, size2 = 0, size3 = 0, size4 = 0;
 int Score_tree = 0;
-// circular box
+
 
 class game_2048
 {
@@ -860,9 +860,10 @@ public:
 
 ////////////////////////////////////// Game 2 //////////////////////////
 
-
 class How_am_i
 {
+    //private
+    int Score_tree = 0;
 public:
 
     struct Node {
@@ -884,7 +885,7 @@ public:
             return;
         }
         if (curr->left == NULL && curr->right == NULL) {
-            cout << curr->data << endl;
+            cout << "-> " << curr->data << "\n";
         }
         else {
             displayAnimals(curr->left);
@@ -892,104 +893,135 @@ public:
         }
     }
     void playGame(Node* curr) {
-
+        
+        char answer;
+        string newAnimal;
+        string question;
+        char newAnswer;
         if (curr->left == NULL && curr->right == NULL) {
-            cout << "Is it a " << curr->data << "? (y/n): ";
-            char answer;
+            cout << "\nIs it a " << curr->data << "? (y/n): ";
             cin >> answer;
             if (answer == 'y') {
                 cout << "I win!\n";
             }
             else {
                 Score_tree = Score_tree + 1;
-                cout << "I give up. What animal were you thinking of? ";
-                string newAnimal;
-                cin >> newAnimal;
-                cout << "What is a yes/no question that distinguishes a "
-                    << curr->data << " from a " << newAnimal << "? ";
-                string question;
+                cout << "\nI give up. What animal were you thinking of? ";
                 cin.ignore();
+                getline(cin, newAnimal);
+                cout << "\nWhat is a yes/no question that distinguishes a <  "
+                    << curr->data << " > from a < " << newAnimal << " > ? ";
+                //cin.ignore();
                 getline(cin, question);
-                cout << "If the animal were a " << newAnimal << ", what would the answer to that question be? ";
-                string newAnswer;
-                getline(cin, newAnswer);
+                cout << "\nIf the animal were a < " << newAnimal << " > , what would the answer to that question be? ";
+                cin >> newAnswer;
                 Node* newQuestion = createLeaf(question);
                 Node* newAnimalNode = createLeaf(newAnimal);
                 Node* oldAnimalNode = createLeaf(curr->data);
-                if (newAnswer == "y") {
-                    curr->data = question;
-                    curr->right = oldAnimalNode;
-                    curr->left = newAnimalNode;
-                }
-                else {
+                if (newAnswer == 'y') {
                     curr->data = question;
                     curr->right = newAnimalNode;
                     curr->left = oldAnimalNode;
                 }
+                else {
+                    curr->data = question;
+                    curr->left = newAnimalNode;
+                    curr->right = oldAnimalNode;
+                }
             }
         }
         else {
-            cout << curr->data << " (y/n): ";
+            cout << "\n" << curr->data << " (y/n): ";
             char answer;
             cin >> answer;
             if (answer == 'y') {
-                playGame(curr->left);
-            }
-            else {
                 playGame(curr->right);
             }
+            else {
+                playGame(curr->left);
+            }
         }
-    }
-
-    void deleteTree(Node* root) {
-        if (root == NULL) {
-            return;
-        }
-        deleteTree(root->left);
-        deleteTree(root->right);
-        delete root;
     }
     void built_tree()
     {
-        Node* root = createLeaf("is it a mammal?");
-        root->left = createLeaf("does it have fur?");
-        root->right = createLeaf("Does it have feathers?");
-        root->right->right = createLeaf("Does it fly?");
-        root->right->right->right = createLeaf("birs");
-        root->left->right = createLeaf("does it have four legs");
-        root->left->right->right = createLeaf("lion");
-        root->left->right->left = createLeaf("horse");
-        root->left->left = createLeaf("does it live in water");
-        root->left->left->left = createLeaf("fish");
-        root->left->left->right = createLeaf("bear");
+
+        Node* root = createLeaf("is it invertebrate ?");//لافقريات
+        root->right = createLeaf("is it mollusks ?"); //رخويات
+        root->right->right = createLeaf("Does it have 8 lesgs?"); //8 ارجل
+        root->right->right->left = createLeaf("Mollusca"); // حلزونه 
+        root->right->right->right = createLeaf("Octopus");//اخطبوط
+        root->right->left = createLeaf("is it insects");// حشره
+        root->right->left->right = createLeaf("is it can fly");
+        root->right->left->right->right = createLeaf("butterfly");//فراشه
+        root->right->left->right->left = createLeaf("Ant");// نمله
+        root->right->left->left = createLeaf("True Crabs");// سرطان البحر 
+        root->left = createLeaf("is it birds");
+        root->left->right = createLeaf("can Talk ?");
+        root->left->right->right = createLeaf("parrot");
+        root->left->right->left = createLeaf("bird"); // عصفوره
+        root->left->left = createLeaf("Is it mammals ?");// ثديات 
+        root->left->left->right = createLeaf("Is it the fastest ?");
+        root->left->left->right->right = createLeaf("Cheetah");// فهد
+        root->left->left->right->left = createLeaf("Is it have hump ?"); // سنام 
+        root->left->left->right->left->right = createLeaf("Camel");// جمل 
+        root->left->left->right->left->left = createLeaf("Cow");//بقره 
+        root->left->left->left = createLeaf("Bee");//نحله  
+
         char ch = 'y';
         while (ch == 'Y' || ch == 'y') {
-            cout << "\n\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
-            cout << "                                              Welcome to our game                                                              " << endl;
-            cout << "\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
 
+            cout << "\n the list contain :- \n\n";
+            SetConsoleTextAttribute(console, 3);
             displayAnimals(root);
-            cout << "\nthis is the only animals available for now with every time you play it become more complex good luck \n" << endl;
-
+            SetConsoleTextAttribute(console, 7);
+            cout << "\n\n";
+            cout << "\n Note :  this is the only animals available for now with every time you play it become more complex good luck \n" << endl;
+            SetConsoleTextAttribute(console,3);
             cout << "\n\nThink of an animal and I'll try to guess it.";
-            cout << "\t~* your score *~ : " << Score_tree << endl;
-
+            cout << "\n~* your score *~ : " << Score_tree << endl;
             playGame(root);
-
             cout << "Do you want to play again? (Y/N): ";
             cin >> ch;
-            // Clean up memory
-            //deleteTree(root);
+
             system("cls");
         }
-        cout << "Thanks for playing!\n";
+        cout << "\nThanks for playing!\n";
+
+
+    }
+
+    void logo_how_am_i()
+    {
+        SetConsoleTextAttribute(console, 4532);
+        cout << "    _    _                                                  _             ___  \n";
+        cout << "   | |  | |                                                (_)           |__ \\ \n";
+        cout << "   | |__| |   ___   __      __     __ _   _ __ ___          _               ) |\n";
+        cout << "   |  __  |  / _ \\  \\ \\ /\\ / /    / _` | | '_ ` _ \\        | |             / / \n";
+        cout << "   | |  | | | (_) |  \\ V  V /    | (_| | | | | | | |       | |            |_|  \n";
+        cout << "   |_|  |_|  \\___/    \\_/\\_/      \\__,_| |_| |_| |_|       |_|            (_)  \n";
+        cout << "                                                                               \n";
+        // loding
+        SetConsoleTextAttribute(console, 7);
+        cout << "\n\n\n\n\tLOADING.....\n\t";
+        SetConsoleTextAttribute(console, 4634);
+        cout << "||||||||||||||||||||||||";
+        // بتأخر الكود ثانيه 
+        Sleep(1000);
+        cout << "||||||||||||||||||||||||";
+        Sleep(1000);
+        cout << "|||||||||||||||||||||||";
+        Sleep(1000);
+        cout << "|||||||||||||||||||||||";
+        Sleep(1000);
+        SetConsoleTextAttribute(console, 0);
+        system("cls");
 
 
     }
 
 
-
 };
+
 
 ////////////////////////////////////////// Game 3///////////////////////
 
@@ -997,49 +1029,45 @@ class quiz_game {
 
 public:
 
-    class quiz_node {
-    public:
+    struct quiz_node
+    {
         int data;
         quiz_node* next;
     };
-
     quiz_node* head = NULL;
-
-    void insert_answer(int true_ans, int pos) {
+    quiz_node* tail = NULL;
+    void insert_answer(int true_ans) {
 
         quiz_node* newnode = new quiz_node;
         newnode->data = true_ans;
         newnode->next = NULL;
-
-        if (pos == 1) {
-            newnode->next = head;
+        if (head == NULL)
+        {
             head = newnode;
+            tail = newnode;
             return;
+
+        }
+        else
+        {
+            tail->next = newnode;
         }
 
-        quiz_node* temp = head;
-        for (int i = 1; i < pos - 1 && temp != NULL; i++) {
-            temp = temp->next;
-        }
 
-        if (temp != NULL) {
-            newnode->next = temp->next;
-            temp->next = newnode;
-        }
     }
 
     void set_answers() {
 
-        insert_answer(61, 1);                           insert_answer(5, 2);                       insert_answer(2, 3);
-        insert_answer(10, 4);                           insert_answer(3, 5);                       insert_answer(5, 6);
-        insert_answer(12, 7);                           insert_answer(2520, 8);                    insert_answer(21, 9);
-        insert_answer(305, 10);                         insert_answer(20, 11);                     insert_answer(24, 12);
-        insert_answer(168, 13);                         insert_answer(7, 14);                      insert_answer(25, 15);
-        insert_answer(19, 16);                          insert_answer(35, 17);                     insert_answer(5, 18);
-        insert_answer(600, 19);                         insert_answer(5, 20);                      insert_answer(48, 21);
-        insert_answer(0, 22);                           insert_answer(20, 23);                     insert_answer(1260, 24);
-        insert_answer(1827, 25);                        insert_answer(22, 26);                     insert_answer(6170, 27);
-        insert_answer(4884, 28);                        insert_answer(297, 29);                    insert_answer(384, 30);
+        insert_answer(61);                          insert_answer(5);                      insert_answer(2);
+        insert_answer(10);                          insert_answer(3);                      insert_answer(5);
+        insert_answer(12);                          insert_answer(2520);                   insert_answer(21);
+        insert_answer(305);                         insert_answer(20);                     insert_answer(24);
+        insert_answer(168);                         insert_answer(7);                      insert_answer(25);
+        insert_answer(19);                          insert_answer(35);                     insert_answer(5);
+        insert_answer(600);                         insert_answer(5);                      insert_answer(48);
+        insert_answer(0);                           insert_answer(20);                     insert_answer(1260);
+        insert_answer(1827);                        insert_answer(22);                     insert_answer(6170);
+        insert_answer(4884);                        insert_answer(297);                    insert_answer(384);
     }
 
     bool check_answer(int ans, int random) {
@@ -1064,29 +1092,35 @@ public:
     void display_qa() {
         ifstream myfile("questions.txt");
         string line;
-        int curent = 0;
         srand(time(0));
-        int num_line = rand() % 20;
+        int curent = rand() % 20;
         int numq, answer;
         int score_quiz = 0;
         char choice;
     start:
+        SetConsoleTextAttribute(console, 112);
+        system("cls");
+        SetConsoleTextAttribute(console, 112);
         cout << " Please Enter the number of questions from < 1 : 10 > : ";
         cin >> numq;
         if (numq > 10 || numq < 1)
         {
+            SetConsoleTextAttribute(console, 4);
+            cout << "\n\t\t\t wrong answer . try again .....\n\n";
+            Sleep(1000);
+            system("cls");
             goto start;
         }
         Sleep(1000);
         system("cls");
-        curent = num_line;
         for (int i = 0; i < curent; i++)
         {
+            
             getline(myfile, line);
         }
         for (int i = 0; i < numq; i++)
         {
-            //getline(myfile, line);
+            
             system("cls");
             cout << line << endl;
             cout << "enter your anwser->  ";
@@ -1142,6 +1176,38 @@ public:
         myfile.close();
     }
 
+    void logo_quiz()
+    {
+        SetConsoleTextAttribute(console, 4532);
+        cout << "\t                _                                          \n";
+        cout << "\t               (_)                                         \n";
+        cout << "\t     __ _ _   _ _ _______      __ _  __ _ _ __ ___   ___   \n";
+        cout << "\t    / _` | | | | |_  / _ \\    / _` |/ _` | '_ ` _ \\ / _ \\  \n";
+        cout << "\t   | (_| | |_| | |/ /  __/   | (_| |(_| | | | | | |  __/   \n";
+        cout << "\t    \\__, |\\__,_|_/___\\___|    \\__, |\\__,_|_| |_| |_|\\___|  \n";
+        cout << "\t       | |                     __/ |                       \n";
+        cout << "\t       |_|                    |___/                        \n";
+        // loding
+        SetConsoleTextAttribute(console, 7);
+        cout << "\n\n\n\n\tLOADING.....\n\t";
+        SetConsoleTextAttribute(console, 4634);
+        cout << "||||||||||||||||||||||||";
+        // بتأخر الكود ثانيه 
+        Sleep(1000);
+        cout << "||||||||||||||||||||||||";
+        Sleep(1000);
+        cout << "|||||||||||||||||||||||";
+        Sleep(1000);
+        cout << "|||||||||||||||||||||||";
+        Sleep(1000);
+        SetConsoleTextAttribute(console, 0);
+        system("cls");
+
+
+    }
+
+
+
 };
 
 
@@ -1151,6 +1217,10 @@ public:
 
 int main()
 {
+    SetConsoleTextAttribute(console, 112);
+    system("cls");
+    SetConsoleTextAttribute(console, 112);
+
     cout << "\n\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
     cout << "                                              Welcome to our game                                                              " << endl;
     cout << "\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
@@ -1163,7 +1233,7 @@ int main()
     cout << "                                                2 - Game_Who am i ? \n";
     cout << "                                                3 - Game_Quiz \n";
     cout << "                                                4 - To Exit Game  \n";
-    cout << " Enter Your Choose : ";
+    cout << "\n\n Enter Your Choose : ";
     int ch;
     cin >> ch;
 
@@ -1181,15 +1251,21 @@ int main()
     case 2:
     {
         How_am_i game2;
+
+        game2.logo_how_am_i();
         game2.built_tree();
+        
         break;
     }
     case 3:
     {
-        quiz_game* quiz = new quiz_game;
-        quiz->set_answers();
-        quiz->display_qa();
 
+        quiz_game game3;
+
+     //  game3.logo_quiz();
+        game3.set_answers();
+        game3.display_qa();
+        
         break;
     }
     case 4:

@@ -1,4 +1,4 @@
 ﻿  project data structure.cpp
 D:\project data structure\project data structure\project data structure\project data structure.cpp(61,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-D:\project data structure\project data structure\project data structure\project data structure.cpp(1068,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\project data structure\project data structure\project data structure\project data structure.cpp(1095,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   project data structure.vcxproj -> D:\project data structure\project data structure\x64\Debug\project data structure.exe
