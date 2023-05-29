@@ -58,7 +58,7 @@ public:
 
 	bool check_answer(int ans, int random) {
 
-		
+
 		quiz_node* ptr = head;
 		for (int i = 1; i < random; i++)
 		{
@@ -90,47 +90,47 @@ public:
 		string line;
 		int curent = 0;
 		srand(time(0));
-		int num_line = rand()%20;
+		int num_line = rand() % 20;
 		int numq, answer;
 		int score_quiz = 0;
 		char choice;
 	start:
 		cout << "\n\n\t\t Please Enter the number of questions from < 1 : 10 > : ";
 		cin >> numq;
-		if (numq>10 || numq<1)
+		if (numq > 10 || numq < 1)
 		{
-            cout<<"\n\n\t\t wrong answer try again.....";
-            Sleep(1500);
-            system("cls");
+			cout << "\n\n\t\t wrong answer try again.....";
+			Sleep(1500);
+			system("cls");
 			goto start;
 		}
 		Sleep(1000);
 		system("cls");
 		curent = num_line;
-			for (int i = 0; i < curent; i++)
-			{
-				getline(myfile, line);
+		for (int i = 0; i < curent; i++)
+		{
+			getline(myfile, line);
+		}
+		for (int i = 0; i < numq; i++)
+		{
+			//getline(myfile, line);
+			system("cls");
+			cout << line << endl;
+			cout << "enter your anwser->  ";
+			cin >> answer;
+			if (check_answer(answer, curent)) {
+				cout << "Your answer is correct" << endl;
+				score_quiz += 10;
+				cout << "Score: " << score_quiz << endl;
 			}
-			for (int i = 0; i < numq; i++)
-			{
-				//getline(myfile, line);
-				system("cls");
-				cout << line << endl;
-				cout << "enter your anwser->  ";
-				cin >> answer;
-				if (check_answer(answer, curent)) {
-					cout << "Your answer is correct" << endl;
-					score_quiz += 10;
-					cout << "Score: " << score_quiz << endl;
-				}
-				else {
-					cout << "Your answer is wrong" << endl;
-				}
-				curent++;
-				Sleep(1000);
-				system("CLS");
-				getline(myfile, line);
-			
+			else {
+				cout << "Your answer is wrong" << endl;
+			}
+			curent++;
+			Sleep(1000);
+			system("CLS");
+			getline(myfile, line);
+
 		}
 		if (score_quiz >= numq * 10) {
 			cout << "Congratulations, you won! " << endl;
