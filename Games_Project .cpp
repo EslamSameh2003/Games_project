@@ -1036,29 +1036,48 @@ public:
         {
             head = newnode;
             tail = newnode;
-            return;
-
         }
         else
         {
             tail->next = newnode;
+            tail = newnode;
         }
 
 
     }
 
-    void set_answers() {
-
-        insert_answer(61);                          insert_answer(5);                      insert_answer(2);
-        insert_answer(10);                          insert_answer(3);                      insert_answer(5);
-        insert_answer(12);                          insert_answer(2520);                   insert_answer(21);
-        insert_answer(305);                         insert_answer(20);                     insert_answer(24);
-        insert_answer(168);                         insert_answer(7);                      insert_answer(25);
-        insert_answer(19);                          insert_answer(35);                     insert_answer(5);
-        insert_answer(600);                         insert_answer(5);                      insert_answer(48);
-        insert_answer(0);                           insert_answer(20);                     insert_answer(1260);
-        insert_answer(1827);                        insert_answer(22);                     insert_answer(6170);
-        insert_answer(4884);                        insert_answer(297);                    insert_answer(384);
+    void set_answers()
+    {
+        insert_answer(61);
+        insert_answer(5);
+        insert_answer(2);
+        insert_answer(10);
+        insert_answer(3);
+        insert_answer(5);
+        insert_answer(12);
+        insert_answer(2520);
+        insert_answer(21);
+        insert_answer(305);
+        insert_answer(20);
+        insert_answer(24);
+        insert_answer(168);
+        insert_answer(7);
+        insert_answer(25);
+        insert_answer(19);
+        insert_answer(35);
+        insert_answer(5);
+        insert_answer(600);
+        insert_answer(5);
+        insert_answer(48);
+        insert_answer(0);
+        insert_answer(20);
+        insert_answer(1260);
+        insert_answer(1827);
+        insert_answer(22);
+        insert_answer(6170);
+        insert_answer(4884);
+        insert_answer(297);
+        insert_answer(384);
     }
 
     bool check_answer(int ans, int random) {
@@ -1085,7 +1104,7 @@ public:
         string line;
         srand(time(0));
         int curent = rand() % 20;
-        int numq, answer;
+        int numq, answer = 0;
         int score_quiz = 0;
         char choice;
     start:
@@ -1106,7 +1125,6 @@ public:
         system("cls");
         for (int i = 0; i < curent; i++)
         {
-
             getline(myfile, line);
         }
         for (int i = 0; i < numq; i++)
@@ -1162,6 +1180,8 @@ public:
         else
         {
             cout << "\n\tWrong choose\n\tTry again\n";
+            Sleep(1000);
+            system("cls");
             goto end;
         }
         myfile.close();
@@ -1210,10 +1230,10 @@ begin:
     SetConsoleTextAttribute(console, 112);
 
     cout << "\n\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
-    cout << "                                              Welcome to our games                                                              " << endl;
+    cout << "                                              Welcome to our game                                                              " << endl;
     cout << "\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
 
-    cout << "                                                List Of Games \n";
+    cout << "                                                List Of Game \n";
     cout << "\t               //////////////////////////////////////////////////////////////////////////////                      " << endl;
 
     cout << endl;
@@ -1258,24 +1278,19 @@ begin:
     }
     case 4:
     {
-        SetConsoleTextAttribute(console, 3);
-        cout << "\n\n\n\t\t\t\t Thanks For Playing Our Games !........... \n";
-        Sleep(1000);
-        system("cls");
         break;
     }
     default:
     {
         SetConsoleTextAttribute(console, 4);
         cout << "\n\n\n\t\t\t\t Wrong Input !........... \n";
-        Sleep(800);
+        Sleep(1500);
         system("cls");
         goto begin;
         break;
     }
     }
 
-    SetConsoleTextAttribute(console, 7);
 
     return 0;
 }
