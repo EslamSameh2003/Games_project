@@ -746,7 +746,7 @@ public:
     // contain the main of execuation of game 
     void execuation()
     {
-
+        //game_2048 game1;
         int x = 0;
         bool game_is_end = false;
         int coloum = 0;
@@ -888,7 +888,6 @@ public:
             displayAnimals(curr->right);
         }
     }
-
     void playGame(Node* curr) {
 
         char answer;
@@ -908,7 +907,7 @@ public:
                 getline(cin, newAnimal);
                 cout << "\nWhat is a yes/no question that distinguishes a <  "
                     << curr->data << " > from a < " << newAnimal << " > ? ";
-
+                //cin.ignore();
                 getline(cin, question);
                 cout << "\nIf the animal were a < " << newAnimal << " > , what would the answer to that question be? ";
                 cin >> newAnswer;
@@ -929,6 +928,7 @@ public:
         }
         else {
             cout << "\n" << curr->data << " (y/n): ";
+            char answer;
             cin >> answer;
             if (answer == 'y') {
                 playGame(curr->right);
@@ -1154,11 +1154,11 @@ public:
         }
         if (score_quiz >= numq * 10) {
             cout << "Congratulations, you won! " << endl;
-            //  goto end;
+            goto end;
         }
         else {
             cout << "Unfortunately, you lost" << endl;
-            //goto end;
+            goto end;
         }
     end:
         Sleep(1000);
@@ -1228,6 +1228,8 @@ public:
 // main
 int main()
 {
+    int num;
+    char choice;
 begin:
     SetConsoleTextAttribute(console, 112);
     system("cls");
@@ -1246,7 +1248,7 @@ begin:
     cout << "                                                3 - Game_Quiz \n";
     cout << "                                                4 - To Exit Game  \n";
     cout << "\n\n Enter Your Choose : ";
-    int num;
+
     cin >> num;
 
     SetConsoleTextAttribute(console, 0);
@@ -1257,26 +1259,49 @@ begin:
     {
         game_2048 game1;
         game1.execuation();
-
+        Sleep(1500);
+        system("cls");
+        SetConsoleTextAttribute(console, 4);
+        cout << "\n\t\t\t if you want to return to main menu ( y / n ) : ";
+        cin >> choice;
+        if (choice == 'y')
+        {
+            goto begin;
+        }
         break;
     }
     case 2:
     {
         How_am_i game2;
-
         game2.logo_how_am_i();
         game2.built_tree();
-
+        Sleep(1500);
+        system("cls");
+        SetConsoleTextAttribute(console, 4);
+        cout << "\n\t\t\t if you want to return to main menu ( y / n ) : ";
+        cin >> choice;
+        if (choice == 'y')
+        {
+            goto begin;
+        }
         break;
     }
     case 3:
     {
 
         quiz_game game3;
-
         game3.logo_quiz();
         game3.set_answers();
         game3.display_qa();
+        Sleep(1500);
+        system("cls");
+        SetConsoleTextAttribute(console, 4);
+        cout << "\n\t\t\t if you want to return to main menu ( y / n ) : ";
+        cin >> choice;
+        if (choice == 'y')
+        {
+            goto begin;
+        }
 
         break;
     }
