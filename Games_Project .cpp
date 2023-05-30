@@ -8,14 +8,17 @@
 #include <Windows.h>
 using namespace std;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-//                       ///////////// game 1 ///////////////////
+// لازم تتحط هنا علشان تتعرف ع الكلاس كله 
+
+                        ///////////// game 1 ///////////////////
 class game_2048
 {
     // private
-    int biggest_num_in_box = 2;
     int score = 0;
+    int biggest_num_in_box = 2;
     int size1 = 0, size2 = 0, size3 = 0, size4 = 0;
 public:
+
     // circular box 
     //begin
     struct node_box
@@ -743,15 +746,15 @@ public:
     // contain the main of execuation of game 
     void execuation()
     {
-        game_2048 game1;
+        //game_2048 game1;
         int x = 0;
         bool game_is_end = false;
         int coloum = 0;
-        game1.display_logo();
-        game1.push_box(2);
+        display_logo();
+        push_box(2);
     check_coloum:
-        game1.display_coloums();
-        game1.display_score();
+        display_coloums();
+        display_score();
         while (size1 <= 4 || size2 <= 4 || size3 <= 4 || size4 <= 4)
         {
             if (score == 2048)
@@ -759,29 +762,30 @@ public:
                 game_is_end = true;
                 break;
             }
-            x = game1.get_num_from_box();
-            game1.GUI(x);
+            x = get_num_from_box();
+            GUI(x);
             cin >> coloum;
-            game1.push(x, coloum);
+            push(x, coloum);
             if (coloum > 4 || coloum < 0)
             {
                 goto check_coloum;
             }
-            game1.check_change_of_matrix(coloum);
-            game1.check_the_size_of_coloums(coloum);
+            check_change_of_matrix(coloum);
+            check_the_size_of_coloums(coloum);
             if (size1 == 4 && size2 == 4 && size3 == 4 && size4 == 4)
             {
                 system("cls");
-                game1.display_coloums();
-                game1.display_score();
+                display_coloums();
+                display_score();
                 break;
             }
-            game1.check_score();
-            game1.insert_num_to_box();
+            check_score();
+            insert_num_to_box();
             system("cls");
-            game1.display_coloums();
-            game1.display_score();
+            display_coloums();
+            display_score();
         }
+    end:
         if (game_is_end)
         {
             cout << "\t\t\t\t\t  ";
@@ -1100,6 +1104,7 @@ public:
     }
 
     void display_qa() {
+    start:
         ifstream myfile("questions.txt");
         string line;
         srand(time(0));
@@ -1107,7 +1112,6 @@ public:
         int numq, answer = 0;
         int score_quiz = 0;
         char choice;
-    start:
         SetConsoleTextAttribute(console, 112);
         system("cls");
         SetConsoleTextAttribute(console, 112);
@@ -1143,7 +1147,7 @@ public:
                 cout << "Your answer is wrong" << endl;
             }
             curent++;
-            Sleep(1000);
+            Sleep(2000);
             system("CLS");
             getline(myfile, line);
 
