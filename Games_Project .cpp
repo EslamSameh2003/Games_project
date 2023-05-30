@@ -746,7 +746,7 @@ public:
     // contain the main of execuation of game 
     void execuation()
     {
-        //game_2048 game1;
+
         int x = 0;
         bool game_is_end = false;
         int coloum = 0;
@@ -888,6 +888,7 @@ public:
             displayAnimals(curr->right);
         }
     }
+
     void playGame(Node* curr) {
 
         char answer;
@@ -907,7 +908,7 @@ public:
                 getline(cin, newAnimal);
                 cout << "\nWhat is a yes/no question that distinguishes a <  "
                     << curr->data << " > from a < " << newAnimal << " > ? ";
-                //cin.ignore();
+
                 getline(cin, question);
                 cout << "\nIf the animal were a < " << newAnimal << " > , what would the answer to that question be? ";
                 cin >> newAnswer;
@@ -928,7 +929,6 @@ public:
         }
         else {
             cout << "\n" << curr->data << " (y/n): ";
-            char answer;
             cin >> answer;
             if (answer == 'y') {
                 playGame(curr->right);
@@ -1147,18 +1147,18 @@ public:
                 cout << "Your answer is wrong" << endl;
             }
             curent++;
-            Sleep(2000);
+            Sleep(1000);
             system("CLS");
             getline(myfile, line);
 
         }
         if (score_quiz >= numq * 10) {
             cout << "Congratulations, you won! " << endl;
-            goto end;
+            //  goto end;
         }
         else {
             cout << "Unfortunately, you lost" << endl;
-            goto end;
+            //goto end;
         }
     end:
         Sleep(1000);
