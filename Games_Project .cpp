@@ -1178,6 +1178,7 @@ public:
         }
         else if (choice == 'y' || choice == 'Y')
         {
+            myfile.close();
             goto start;
         }
         else
