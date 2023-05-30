@@ -1154,11 +1154,11 @@ public:
         }
         if (score_quiz >= numq * 10) {
             cout << "Congratulations, you won! " << endl;
-            goto end;
+
         }
         else {
             cout << "Unfortunately, you lost" << endl;
-            goto end;
+
         }
     end:
         Sleep(1000);
@@ -1175,7 +1175,6 @@ public:
             Sleep(1500);
             cout << "\n\n\t\t Creativity, when intelligence becomes a kind of fun. \n\n\t\t\t Albert Einstein \n";
             Sleep(1500);
-            exit(0);
         }
         else if (choice == 'y' || choice == 'Y')
         {
